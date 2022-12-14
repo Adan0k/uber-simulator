@@ -12,13 +12,7 @@ public class Main {
         grid[0][0] = car;
 
         Level.buildLevel1();
-        Prints.printGrid(Level.level1.getMap());
-        Level.level1.move();
-        Prints.printGrid(Level.level1.getMap());
-        Level.level1.move();
-        Prints.printGrid(Level.level1.getMap());
-        Level.level1.move();
-        Prints.printGrid(Level.level1.getMap());
+        Level.level1.start();
 
     }
 }

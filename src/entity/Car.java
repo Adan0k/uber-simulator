@@ -7,11 +7,14 @@ public class Car extends NotFixed implements Movable {
 
     public Car(Position position, String symbol) {
         super(symbol,position);
-        this.colision = true;
     }
     @Override
     public void move(int row, int column) {
       position.setRow(row);
       position.setColunm(column);
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
     }
 }

@@ -15,4 +15,8 @@ public abstract class Entity {
     public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
+
+    public boolean isColision() {
+        return colision;
+    }
 }
