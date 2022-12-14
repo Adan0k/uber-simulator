@@ -1,4 +1,4 @@
-package prints;
+package in_out;
 
 enum Color {
     //Color end string, color reset

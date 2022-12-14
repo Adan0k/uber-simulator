@@ -1,7 +1,8 @@
 import entity.Car;
 import entity.Entity;
+import map.Level;
 import map.Position;
-import prints.Prints;
+import in_out.Prints;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,6 +11,14 @@ public class Main {
         Entity[][] grid = new Entity[15][15];
         grid[0][0] = car;
 
-        Prints.printGrid(grid);
+        Level.buildLevel1();
+        Prints.printGrid(Level.level1.getMap());
+        Level.level1.move();
+        Prints.printGrid(Level.level1.getMap());
+        Level.level1.move();
+        Prints.printGrid(Level.level1.getMap());
+        Level.level1.move();
+        Prints.printGrid(Level.level1.getMap());
+
     }
 }

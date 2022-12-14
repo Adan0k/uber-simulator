@@ -1,29 +1,18 @@
 package entity;
 
-import map.Position;
-
 public abstract class Entity {
-    protected Position position;
-    protected String simbol;
+    protected String symbol;
+    protected boolean colision;
 
-    public Entity(Position position, String simbol) {
-        this.position = position;
-        this.simbol = simbol;
+    public Entity(String symbol) {
+        this.symbol = symbol;
     }
 
-    public Position getPosition() {
-        return position;
+    public String getSymbol() {
+        return symbol;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public String getSimbol() {
-        return simbol;
-    }
-
-    public void setSimbol(String simbol) {
-        this.simbol = simbol;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 }

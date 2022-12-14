@@ -1,6 +1,5 @@
-package prints;
+package in_out;
 
-import entity.Car;
 import entity.Entity;
 
 public class Prints {
@@ -50,7 +49,7 @@ public class Prints {
                     System.out.print("  ");
                     continue;
                 }
-                System.out.print (grid[i][j].getSimbol());
+                System.out.print (grid[i][j].getSymbol());
             }
             System.out.print(" |");
             System.out.println();
