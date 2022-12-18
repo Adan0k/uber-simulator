@@ -17,4 +17,12 @@ public class Inputs {
         System.out.println("The directions are only W,A,S,D");
         return inputDirection();
     }
+    public static int inputMenuOptions(int initial, int finale){
+        int op = scanner.nextInt();
+        if (op >= initial && op <= finale){
+            return op;
+        }
+        System.out.println("this is not a option");
+        return inputMenuOptions(initial,finale);
+    }
 }

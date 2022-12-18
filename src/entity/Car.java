@@ -14,6 +14,10 @@ public class Car extends NotFixed implements Movable {
       position.setColunm(column);
     }
 
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
     public void setPassenger(Passenger passenger) {
         this.passenger = passenger;
     }

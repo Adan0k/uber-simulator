@@ -24,4 +24,7 @@ public class Position {
     public void setColunm(int colunm) {
         this.colunm = colunm;
     }
+    public boolean equals(Position position){
+            return this.row == position.row && this.colunm == position.colunm;
+    }
 }

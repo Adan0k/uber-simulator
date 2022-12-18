@@ -9,8 +9,13 @@ public class Passenger extends NotFixed{
 
     public Passenger(String name,Position position,String symbol, Position destination) {
         super(symbol,position);
+        this.name = name;
         this.destination = destination;
         colision = false;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Position getDestination() {
@@ -20,6 +25,7 @@ public class Passenger extends NotFixed{
     public void setDestination(Position destination) {
         this.destination = destination;
     }
+
 
     public boolean isInDestination() {
         return inDestination;
