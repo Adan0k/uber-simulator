@@ -1,18 +1,17 @@
 package map;
 
 import entity.*;
-import in_out.Inputs;
-import in_out.Prints;
+import in_out.*;
+import save.Save;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.Console;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.EnumSet;
+
 
 public enum Level {
-    level1(new Passenger("Jose", new Position(0, 0), "\uD83D\uDD7A", new Position(5, 5)), new Car(new Position(5, 5), "\uD83D\uDE97")),
-    level2(new Passenger("Ednaldo", new Position(9, 2), "\uD83E\uDDCD\u200D", new Position(0, 9)), new Car(new Position(9, 9), "\uD83D\uDE99"));
+    level1(1, new Passenger("Jose", new Position(0, 0), "\uD83D\uDD7A", new Position(5, 5)), new Car(new Position(5, 5), "\uD83D\uDE97")),
+    level2(2, new Passenger("Ednaldo", new Position(9, 2), "\uD83E\uDDCD\u200D", new Position(0, 9)), new Car(new Position(9, 9), "\uD83D\uDE99"));
+
+    private int id;
     private Entity[][] map;
     private Car car;
     private static Empty empty = new Empty("  ");
@@ -20,7 +19,8 @@ public enum Level {
 
     private Trigger trigger;
 
-    Level(Passenger passenger, Car car) {
+    Level(int id, Passenger passenger, Car car) {
+        this.id = id;
         this.car = car;
         this.passenger = passenger;
     }
@@ -29,6 +29,17 @@ public enum Level {
         return map;
     }
 
+    public static Level fromInt(int value) {
+        return EnumSet.allOf(Level.class)
+                .stream()
+                .filter(level -> level.id == value)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public static void buildLevel1() {
         level1.map = new Entity[6][6];
@@ -73,7 +84,7 @@ public enum Level {
         level2.map[level2.car.getPosition().getRow()][level2.car.getPosition().getColunm()] = level2.car;
         level2.map[level2.passenger.getPosition().getRow()][level2.passenger.getPosition().getColunm()] = level2.passenger;
 
-        level2.trigger = new Trigger("  ", new Position(9, 6), new Position(9, 7),new Position(5,1) ,level2.car.getPassenger() != null);
+        level2.trigger = new Trigger("  ", new Position(9, 6), new Position(9, 7), new Position(5, 1), level2.car.getPassenger() != null);
 
         level2.map[6][9] = building;
         level2.map[5][9] = building;
@@ -142,10 +153,13 @@ public enum Level {
         level2.map[9][0] = building;
 
 
-
         fillEmpty(level2.map);
 
 
+    }
+    public static void buildAllLevels(){
+        buildLevel1();
+        buildLevel2();
     }
 
     public void move() {
@@ -175,7 +189,10 @@ public enum Level {
             map[car.getPosition().getRow()][car.getPosition().getColunm()] = empty;
             car.move(car.getPosition().getRow(), car.getPosition().getColunm() + 1);
         }
-        block(direction);
+        if (trigger != null){
+            block(direction);
+        }
+
         win();
     }
 
@@ -224,8 +241,9 @@ public enum Level {
             map[passenger.getDestination().getRow()][passenger.getDestination().getColunm()] = new Empty("\uD83D\uDCCD");
         }
     }
-    public void block(String direction){
-        if (car.getPosition().equals(trigger.getPosition()) && car.getPassenger() != null){
+
+    public void block(String direction) {
+        if (car.getPosition().equals(trigger.getPosition()) && car.getPassenger() != null) {
             map[trigger.getActionPosition().getRow()][trigger.getActionPosition().getColunm()] = new Buildings("\uD83D\uDEA7");
             map[trigger.getAction2Position().getRow()][trigger.getAction2Position().getColunm()] = empty;
 
@@ -240,12 +258,16 @@ public enum Level {
 
     }
 
-    public void start() {
+    public void start() throws Exception {
         Prints.printGrid(map);
         System.out.println("you have to take " + passenger.getName() + "to their destination");
         do {
             move();
             Prints.printGrid(map);
         } while (!passenger.isInDestination());
+        if (Save.getSave() == EnumSet.allOf(Level.class).size()){
+            return;
+        }
+        Save.saveGame(id);
     }
 }

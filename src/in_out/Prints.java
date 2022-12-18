@@ -1,6 +1,9 @@
 package in_out;
 
 import entity.Entity;
+import map.Level;
+
+import java.util.EnumSet;
 
 public class Prints {
     public static void wellcome(){
@@ -91,5 +94,11 @@ public class Prints {
         System.out.println("3 - instructions");
         System.out.println("0 - exit");
         System.out.println("---------------------------");
+    }
+    public static void loadMenu(EnumSet<Level> levels){
+        System.out.println("---------------------------");
+        levels.stream().forEach(e-> System.out.println(e.getId() + " - " + e));
+        System.out.println("---------------------------");
+
     }
 }
