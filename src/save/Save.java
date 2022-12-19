@@ -27,6 +27,9 @@ public class Save {
         File file = new File(path);
         if (file.list().length == 0) {
             createFile("save.txt");
+            FileWriter fw = new FileWriter(path + "/save.txt");
+            fw.write("0");
+            fw.close();
         }
     }
 

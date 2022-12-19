@@ -30,7 +30,7 @@ public class Menu {
                     backToMain();
                     break;
                 }
-                Level.fromInt(Save.getSave()).start();
+                Level.fromInt(Save.getSave() + 1).start();
                 backToMain();
                 break;
             case 3:
